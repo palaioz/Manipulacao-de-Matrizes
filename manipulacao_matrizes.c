@@ -38,14 +38,14 @@ int menu1() {
 
         printf("1 - Digitar o valor dos elementos da matriz\n");
         printf("2 - Gerar os elementos da matriz\n");
+        printf("0 - Sair\n");
         printf("Digite a opção desejada: ");
         scanf("%d", &opcao);
         
-        if (opcao != 1 && opcao != 2) {
+        if (opcao != 1 && opcao != 2 && opcao != 0) {
             printf("\nOpção inválida! Tente novamente.\n");
         }
-    } while (opcao != 1 && opcao != 2);
-
+    } while (opcao != 1 && opcao != 2 && opcao != 0);
     return opcao;
 }
 
@@ -133,6 +133,9 @@ int main(){
         case 2:
             gerar_matriz(matriz, N);
             break;
+        case 0:
+            printf("Saindo do programa");
+            exit(0);
     }
 
     exibir_matriz(matriz, N);
@@ -150,8 +153,6 @@ int main(){
      *          * Multiplicação por um valor escalar X (gerar e exibir nova matriz)
      *          * Calcular e mostrar a soma dos elementos da diagonal principal 
      *          * Calcular e armazenar em um vetor a soma dos elementos de cada linha 
-     *      - Opção C (Sair do programa):
-     *          * Encerrar o loop do menu e liberar a memória corretamente.
      * */
 
     // Liberação da memória alocada 
