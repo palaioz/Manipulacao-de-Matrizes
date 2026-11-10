@@ -1,0 +1,9 @@
+# Executáveis
+*.exe
+*.out
+*.o
+*.a
+
+# Pastas de IDEs
+.vscode/
+.idea/
