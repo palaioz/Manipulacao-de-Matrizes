@@ -68,6 +68,12 @@ void ler_matriz(int *matriz, int N){
 void gerar_matriz(int *matriz, int N) {
     srand(time(NULL)); // inicializa a 'seed' randômica baseada no tempo atual
 
+    // Valida ponteiro nulo ou tamanho inválido 
+    if (matriz == NULL || N <= 0) {
+        printf("\n[ERRO] Falha ao gerar matriz: ponteiro inválido ou dimensão menor/igual a zero.\n");
+        return;
+    }
+
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             // Atribui valores aleatórios de 1 a 99 para cada posição da matriz 
@@ -79,6 +85,12 @@ void gerar_matriz(int *matriz, int N) {
 
 // Autor: Antônio Gonçalves dos Santos 
 void exibir_matriz(int *matriz, int N) {
+    // Valida ponteiro nulo ou tamanho inválido antes de exibir.
+    if (matriz == NULL || N <= 0) {
+        printf("\n[ERRO] Falha ao exibir matriz: matriz não alocada ou inválida.\n");
+        return;
+    }
+    
     printf("\nMatriz Atual (%d x %d):\n", N, N);
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
@@ -97,8 +109,12 @@ int main(){
     int N;
     int *matriz;
 
+
     printf("Digite o valor de N que representa o número de linhas e colunas da matriz: ");
-    scanf("%d", &N);
+    while (scanf("%d", &N) != 1 || N <= 0) {
+        printf("[ERRO] Valor inválido! Digite um número inteiro maior que zero.\n");
+            while(getchar() != '\n'); // Limpa o buffer
+    }
 
     // Alocação dinâmica de memória para a matriz N x N 
     matriz = (int *) malloc(N * N * sizeof(int));
@@ -123,7 +139,19 @@ int main(){
 
     /*
      *  A FAZER:
-     *  - Implementar o MENU 2 (Classes da Matriz e cálculos)
+     *  ----------- 
+     *  1. Imnplementar o MENU 2:
+     *      - Opção A (Classe da Matriz):
+     *          * Verificar se é Simétrica (A[i][j] == A[j][i])
+     *          * Verificar se é Diagonal (A[i][j] == 0 para i != j)
+     *          * Verificar se é Triangular Superior (A[i][j] == 0 para i > j)
+     *          * Verificar se é Triangular Inferior (A[i][k] == 0 para i < j)
+     *      - Opção B (Cálculos sobre a Matriz):
+     *          * Multiplicação por um valor escalar X (gerar e exibir nova matriz)
+     *          * Calcular e mostrar a soma dos elementos da diagonal principal 
+     *          * Calcular e armazenar em um vetor a soma dos elementos de cada linha 
+     *      - Opção C (Sair do programa):
+     *          * Encerrar o loop do menu e liberar a memória corretamente.
      * */
 
     // Liberação da memória alocada 
