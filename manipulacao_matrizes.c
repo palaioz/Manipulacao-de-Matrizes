@@ -26,6 +26,7 @@
 #include <stdlib.h>
 #include <time.h>
 #include <locale.h>
+// #include <windows.h>
 
 
 // --- DECLARAÇÃO DE FUNÇÕES --- 
@@ -104,7 +105,8 @@ void exibir_matriz(int *matriz, int N) {
 // --- MAIN --- 
 
 int main(){
-    setlocale(LC_ALL, "portuguese");
+    // SetConsoleOutputCP(65001);
+    setlocale(LC_ALL, "pt_BR.UTF-8");
     
     int N;
     int *matriz;
