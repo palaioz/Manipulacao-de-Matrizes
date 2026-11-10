@@ -36,7 +36,7 @@ int menu1() {
 
     int opcao;
     do {
-
+        printf("\n--- OPERAÇÕES COM MATRIZES ---\n");
         printf("1 - Digitar o valor dos elementos da matriz\n");
         printf("2 - Gerar os elementos da matriz\n");
         printf("0 - Sair\n");
@@ -47,6 +47,34 @@ int menu1() {
             printf("\nOpção inválida! Tente novamente.\n");
         }
     } while (opcao != 1 && opcao != 2 && opcao != 0);
+    
+    return opcao;
+}
+
+// Autor: Antônio Gonçalves dos Santos 
+char menu2() {
+    char opcao;
+
+    do {
+        printf("\n--- MENU DE OPERAÇÕES ---\n");
+        printf("A - Classe da matriz\n");
+        printf("B - Cálculos sobre a matriz\n");
+        printf("C - Sair do programa\n");
+        printf("Digite a opção desejada: \n");
+
+        scanf(" %c", &opcao);
+        
+        // Padroniza para maiúscula para aceitar tanto 'a' quanto 'A', etc.
+        if (opcao >= 'a' && opcao <= 'z') {
+            opcao = opcao - 32; // valores da tabela ASCII 
+        }
+
+        if (opcao != 'A' && opcao != 'B' && opcao != 'C') {
+            printf("\n[ERRO] Opção inválida! Tente novamente.\n");
+        }
+
+    } while (opcao != 'A' && opcao != 'B' && opcao != 'C');
+
     return opcao;
 }
 
@@ -136,11 +164,32 @@ int main(){
             gerar_matriz(matriz, N);
             break;
         case 0:
-            printf("Saindo do programa");
+            printf("Saindo do programa...\n");
+            free(matriz);
             exit(0);
     }
 
     exibir_matriz(matriz, N);
+
+    // Loop do Menu 2
+    char opcao_menu2;
+    do {
+        opcao_menu2 = menu2();
+
+        switch (opcao_menu2) {
+            case 'A':
+                printf("\n[A FAZER] Opção A selecionada: Classe da matriz (Simétrica, Diagonal, Triangular Superior/Inferior).\n");
+                break;
+            
+            case 'B':
+                printf("\n[A FAZER] Opção B selecionada: Cálculos sobre a matriz (Escalar, Diagonal principal, Soma das linhas).\n");
+                break;
+
+            case 'C':
+                printf("\nSaindo do programa...\n");
+                break;
+        }
+    } while (opcao_menu2 != 'C');
 
     /*
      *  A FAZER:
