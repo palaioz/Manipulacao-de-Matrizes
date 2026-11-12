@@ -29,7 +29,9 @@
 // #include <windows.h>
 
 
-// --- DECLARAÇÃO DE FUNÇÕES --- 
+// === DECLARAÇÃO DE FUNÇÕES === 
+
+// --- Menus ---
 
 // Autor: Vitor Zeferino Marques 
 int menu1() {
@@ -77,6 +79,8 @@ char menu2() {
 
     return opcao;
 }
+
+// --- Leitura e Exibição Matriz ---
 
 // Autor: Vitor Zeferino Marques 
 void ler_matriz(int *matriz, int N){
@@ -129,6 +133,22 @@ void exibir_matriz(int *matriz, int N) {
     }
 }
 
+// --- Cálculos Matriz ---
+
+// Autor: Antônio Gonçalves dos Santos
+int soma_diagonal_matriz(int *matriz, int N) {
+    int soma = 0;
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            if (i == j) {
+                soma += *(matriz + i * N + j);
+            }
+        }
+    }
+
+    return soma;
+}
 
 // --- MAIN --- 
 
@@ -182,7 +202,19 @@ int main(){
                 break;
             
             case 'B':
-                printf("\n[A FAZER] Opção B selecionada: Cálculos sobre a matriz (Escalar, Diagonal principal, Soma das linhas).\n");
+                int escalar = 0;
+                int soma_diagonal = soma_diagonal_matriz(matriz, N);
+                int soma_linhas = 0;
+
+                printf("\n--- CÁLCULOS DA MATRIZ ---");
+                printf("\nDigite um inteiro como escalar: ");
+                scanf(" %d", &escalar);
+                printf("[A FAZER] Matriz * %d: \n", escalar);
+                exibir_matriz(matriz, N);
+
+                printf("\nDiagonal da Matriz: %d", soma_diagonal);
+                
+                printf("\n[A FAZER] Soma das linhas = \n");
                 break;
 
             case 'C':
@@ -202,7 +234,6 @@ int main(){
      *          * Verificar se é Triangular Inferior (A[i][k] == 0 para i < j)
      *      - Opção B (Cálculos sobre a Matriz):
      *          * Multiplicação por um valor escalar X (gerar e exibir nova matriz)
-     *          * Calcular e mostrar a soma dos elementos da diagonal principal 
      *          * Calcular e armazenar em um vetor a soma dos elementos de cada linha 
      * */
 
