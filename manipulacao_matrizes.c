@@ -150,6 +150,28 @@ int soma_diagonal_matriz(int *matriz, int N) {
     return soma;
 }
 
+// Autor: Vítor Zeferino Marques
+int *soma_linhas_matriz(int *matriz, int N){
+
+    int *soma = (int *) malloc(N * sizeof(int));
+    if(soma == NULL){
+        printf("Erro ao alocar memória.\n");
+        exit(-1);
+    }
+    int i, j;
+
+    for(i = 0; i < N; i++){
+        soma[i] = 0;
+        for(j = 0; j < N; j++){
+            soma[i] += *(matriz + i * N + j);
+        }
+
+    }
+
+
+
+return soma;
+}
 // --- MAIN --- 
 
 int main(){
@@ -204,7 +226,7 @@ int main(){
             case 'B':
                 int escalar = 0;
                 int soma_diagonal = soma_diagonal_matriz(matriz, N);
-                int soma_linhas = 0;
+                int *soma_linhas = soma_linhas_matriz(matriz, N);
 
                 printf("\n--- CÁLCULOS DA MATRIZ ---");
                 printf("\nDigite um inteiro como escalar: ");
@@ -213,10 +235,13 @@ int main(){
                 exibir_matriz(matriz, N);
 
                 printf("\nDiagonal da Matriz: %d", soma_diagonal);
-                
-                printf("\n[A FAZER] Soma das linhas = \n");
-                break;
 
+                for(int c = 0; c < N; c++){
+                    printf("\nSoma da linha %d: %d\n", c + 1, soma_linhas[c]);
+                }
+                free(soma_linhas);
+                break;
+                
             case 'C':
                 printf("\nSaindo do programa...\n");
                 break;
@@ -239,6 +264,7 @@ int main(){
 
     // Liberação da memória alocada 
     free(matriz);
+
     
     return 0;
 }
