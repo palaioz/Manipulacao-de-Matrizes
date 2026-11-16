@@ -179,10 +179,26 @@ int *soma_linhas_matriz(int *matriz, int N){
 
     }
 
-
-
-return soma;
+    return soma;
 }
+
+// Autor: Antônio Gonçalves dos Santos 
+int *multiplicar_matriz_escalar(int *matriz, int N, int escalar) {
+    int *nova_matriz = (int *) malloc(N * N * sizeof(int));
+    if (nova_matriz == NULL) {
+        printf("Erro ao alocar memória.\n");
+        exit(-1);
+    }
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            *(nova_matriz + i * N + j) = *(matriz + i * N + j) * escalar;
+        }
+    }
+
+    return nova_matriz;
+}
+
 // --- MAIN --- 
 
 int main(){
