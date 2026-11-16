@@ -3,7 +3,12 @@
 *.out
 *.o
 *.a
+*.obj
 
 # Pastas de IDEs
-.vscode/
-.idea/
+*.vscode/
+*.idea/
+
+# Outros
+*.ilk
+*.pdb
