@@ -214,7 +214,7 @@ int main(){
 
     printf("Digite o valor de N que representa o número de linhas e colunas da matriz: ");
     while (scanf("%d", &N) != 1 || N <= 0) {
-        printf("[ERRO] Valor inválido! Digite um número inteiro maior que zero.\n");
+        printf("[ERRO] Valor inválido! Digite um número inteiro maior que zero: ");
             while(getchar() != '\n'); // Limpa o buffer
     }
 
@@ -278,7 +278,7 @@ int main(){
                 printf("\nSoma da Diagonal da Matriz: %d\n", soma_diagonal);
 
                 for(int c = 0; c < N; c++){
-                    printf("\nSoma da linha %d: %d\n", c + 1, soma_linhas[c]);
+                    printf("Soma da linha %d: %d\n", c + 1, soma_linhas[c]);
                 }
 
                 free(soma_linhas);
@@ -293,14 +293,12 @@ int main(){
     /*
      *  A FAZER:
      *  ----------- 
-     *  1. Imnplementar o MENU 2:
+     *  1. Implementar o MENU 2:
      *      - Opção A (Classe da Matriz):
      *          * Verificar se é Simétrica (A[i][j] == A[j][i])
      *          * Verificar se é Diagonal (A[i][j] == 0 para i != j)
      *          * Verificar se é Triangular Superior (A[i][j] == 0 para i > j)
      *          * Verificar se é Triangular Inferior (A[i][k] == 0 para i < j)
-     *      - Opção B (Cálculos sobre a Matriz):
-     *          * Calcular e armazenar em um vetor a soma dos elementos de cada linha 
      * */
 
     // Liberação da memória alocada 
