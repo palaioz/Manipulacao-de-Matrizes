@@ -91,10 +91,15 @@ char menu2() {
     return opcao;
 }
 
+
 // --- Leitura e Exibição Matriz ---
 
 // Autor: Vitor Zeferino Marques 
 void ler_matriz(int *matriz, int N){
+    if (matriz == NULL || N <= 0) {
+        printf("\n[ERRO] Falha ao ler matriz: ponteiro inválido ou dimensão inválida.\n");
+        return;
+    }
 
     int i, j;
     printf("Digite os elementos da matriz\n");
@@ -144,18 +149,17 @@ void exibir_matriz(int *matriz, int N) {
     }
 }
 
+
 // --- Cálculos Matriz ---
 
 // Autor: Antônio Gonçalves dos Santos
 int soma_diagonal_matriz(int *matriz, int N) {
+    if (matriz == NULL || N <= 0) return 0;
+
     int soma = 0;
 
     for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            if (i == j) {
-                soma += *(matriz + i * N + j);
-            }
-        }
+        soma += *(matriz + i * N + i);
     }
 
     return soma;
@@ -163,8 +167,10 @@ int soma_diagonal_matriz(int *matriz, int N) {
 
 // Autor: Vítor Zeferino Marques
 int *soma_linhas_matriz(int *matriz, int N){
+    if (matriz == NULL || N <= 0) return NULL;
 
     int *soma = (int *) malloc(N * sizeof(int));
+    
     if(soma == NULL){
         printf("Erro ao alocar memória.\n");
         exit(-1);
@@ -182,8 +188,36 @@ int *soma_linhas_matriz(int *matriz, int N){
     return soma;
 }
 
+// Autor: Antônio Gonçalves dos Santos 
+int *multiplicar_matriz_escalar(int *matriz, int N, int escalar) {
+    if (matriz == NULL || N <= 0) return 0;
+
+    int *nova_matriz = (int *) malloc(N * N * sizeof(int));
+    
+    if (nova_matriz == NULL) {
+        printf("Erro ao alocar memória.\n");
+        exit(-1);
+    }
+
+    for (int i = 0; i < N; i++) {
+        for (int j = 0; j < N; j++) {
+            *(nova_matriz + i * N + j) = *(matriz + i * N + j) * escalar;
+        }
+    }
+
+    return nova_matriz;
+}
+
+
+// --- Verificação de Classes --- 
+
 // Autor: Bernardo Quaiatto Signor
-void verificar_simetrica(int *matriz, int N){
+int verificar_simetrica(int *matriz, int N){
+    if (matriz == NULL || N <= 0) {
+        printf("[ERRO] Não foi possível verificar simetria: matriz inválida.\n");
+        return 0;
+    }
+
     int simetrica = 1;
  
     for (int i = 0; i < N && simetrica; i++){
@@ -197,9 +231,17 @@ void verificar_simetrica(int *matriz, int N){
     if (simetrica){
         printf("A matriz é simétrica.\n");
     }
+
+    return simetrica;
 }
 
-void verificar_diagonal(int *matriz, int N){
+// Autor: Bernardo Quaiatto Signor 
+int verificar_diagonal(int *matriz, int N){
+    if (matriz == NULL || N <= 0) {
+        printf("[ERRO] Não foi possível verificar matriz diagonal: matriz inválida.\n");
+        return 0;
+    }
+    
     int diagonal = 1;
  
     for (int i = 0; i < N && diagonal; i++){
@@ -213,9 +255,17 @@ void verificar_diagonal(int *matriz, int N){
     if (diagonal){
         printf("A matriz é diagonal.\n");
     }
+
+    return diagonal;
 }
 
-void verificar_triangular_superior(int *matriz, int N){
+// Autor: Bernardo Quaiatto Signor 
+int verificar_triangular_superior(int *matriz, int N){
+    if (matriz == NULL || N <= 0) {
+        printf("[ERRO] Não foi possível verificar triangular superior: matriz inválida.\n");
+        return 0;
+    }
+
     int superior = 1;
  
     for (int i = 1; i < N && superior; i++){
@@ -230,9 +280,16 @@ void verificar_triangular_superior(int *matriz, int N){
     if (superior) {
         printf("A matriz é triangular superior.\n");
     }
+
+    return superior;
 }
 
-void verificar_triangular_inferior(int *matriz, int N) {
+// Autor: Bernardo Quaiatto Signor 
+int verificar_triangular_inferior(int *matriz, int N) {
+    if (matriz == NULL || N <= 0) {
+        printf("[ERRO] Não foi possível verificar triangular inferior: matriz inválida.\n");
+    }
+
     int inferior = 1;
  
     for (int i = 0; i < N && inferior; i++) {
@@ -247,24 +304,10 @@ void verificar_triangular_inferior(int *matriz, int N) {
     if (inferior) {
         printf(" matriz é triangular inferior.\n");
     }
+
+    return inferior;
 }
 
-// Autor: Antônio Gonçalves dos Santos 
-int *multiplicar_matriz_escalar(int *matriz, int N, int escalar) {
-    int *nova_matriz = (int *) malloc(N * N * sizeof(int));
-    if (nova_matriz == NULL) {
-        printf("Erro ao alocar memória.\n");
-        exit(-1);
-    }
-
-    for (int i = 0; i < N; i++) {
-        for (int j = 0; j < N; j++) {
-            *(nova_matriz + i * N + j) = *(matriz + i * N + j) * escalar;
-        }
-    }
-
-    return nova_matriz;
-}
 
 // --- MAIN --- 
 
