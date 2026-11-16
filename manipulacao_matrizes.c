@@ -255,20 +255,32 @@ int main(){
             
             case 'B':
                 int escalar = 0;
+                
+                printf("\n--- CÁLCULOS DA MATRIZ ---");
+                printf("\nDigite um inteiro como escalar: ");
+               
+                // Se o usuário digitar letra/síbolo, repete apenas esse input 
+                while (scanf("%d", &escalar) != 1) {
+                    printf("\n[ERRO] Entrada inválida! Digite apenas um número inteiro para o escalar: ");
+                    while (getchar() != '\n'); // Limpa o buffer com o caractere inválido 
+                } 
+                while (getchar() != '\n'); // Limpa o buffer após o enter do número correto
+
                 int soma_diagonal = soma_diagonal_matriz(matriz, N);
                 int *soma_linhas = soma_linhas_matriz(matriz, N);
 
-                printf("\n--- CÁLCULOS DA MATRIZ ---");
-                printf("\nDigite um inteiro como escalar: ");
-                scanf(" %d", &escalar);
-                printf("[A FAZER] Matriz * %d: \n", escalar);
-                exibir_matriz(matriz, N);
+                int *matriz_multiplicada = multiplicar_matriz_escalar(matriz, N, escalar);
+                printf("\nMatriz Multiplicada por %d: \n", escalar);
+                exibir_matriz(matriz_multiplicada, N);
 
-                printf("\nDiagonal da Matriz: %d", soma_diagonal);
+                free(matriz_multiplicada);
+
+                printf("\nSoma da Diagonal da Matriz: %d\n", soma_diagonal);
 
                 for(int c = 0; c < N; c++){
                     printf("\nSoma da linha %d: %d\n", c + 1, soma_linhas[c]);
                 }
+
                 free(soma_linhas);
                 break;
                 
@@ -288,7 +300,6 @@ int main(){
      *          * Verificar se é Triangular Superior (A[i][j] == 0 para i > j)
      *          * Verificar se é Triangular Inferior (A[i][k] == 0 para i < j)
      *      - Opção B (Cálculos sobre a Matriz):
-     *          * Multiplicação por um valor escalar X (gerar e exibir nova matriz)
      *          * Calcular e armazenar em um vetor a soma dos elementos de cada linha 
      * */
 
