@@ -26,7 +26,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include <locale.h>
-// #include <windows.h>
+
+#if defined(_WIN32) || defined(_WIN64)
+    #include <windows.h>
+#endif
 
 
 // === DECLARAÇÃO DE FUNÇÕES === 
@@ -37,17 +40,25 @@
 int menu1() {
 
     int opcao;
+    int resultado;
+
     do {
         printf("\n--- OPERAÇÕES COM MATRIZES ---\n");
         printf("1 - Digitar o valor dos elementos da matriz\n");
         printf("2 - Gerar os elementos da matriz\n");
         printf("0 - Sair\n");
         printf("Digite a opção desejada: ");
-        scanf("%d", &opcao);
-        
-        if (opcao != 1 && opcao != 2 && opcao != 0) {
-            printf("\nOpção inválida! Tente novamente.\n");
+        resultado = scanf("%d", &opcao);
+
+        while (getchar() != '\n');
+
+        if (resultado != 1) {
+            printf("\n[ERRO] Entrada inválida! Digite apenas números inteiros (0, 1 ou 2).\n");
+            opcao = -1;
+        } else if (opcao != 1 && opcao != 2 && opcao != 0) {
+            printf("\n[ERRO] Opção inválida! Tente novamente.\n");
         }
+
     } while (opcao != 1 && opcao != 2 && opcao != 0);
     
     return opcao;
@@ -175,8 +186,11 @@ return soma;
 // --- MAIN --- 
 
 int main(){
-    // SetConsoleOutputCP(65001);
-    setlocale(LC_ALL, "pt_BR.UTF-8");
+    #if defined(_WIN32) || defined(_WIN64)
+        SetConsoleOutputCP(65001);
+    #else
+        setlocale(LC_ALL, "pt_BR.UTF-8");
+    #endif 
     
     int N;
     int *matriz;
