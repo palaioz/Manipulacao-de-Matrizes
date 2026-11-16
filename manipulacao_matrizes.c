@@ -317,16 +317,22 @@ int main(){
     #else
         setlocale(LC_ALL, "pt_BR.UTF-8");
     #endif 
-    
+   
+    srand(time(NULL)); // Inicializa a semente randômica uma única vez 
+
     int N;
     int *matriz;
 
+    printf("================================================\n");
+    printf("    SISTEMA DE MANIPULAÇÃO DE MATRIZES (NXN)    \n");
+    printf("================================================\n");
 
     printf("Digite o valor de N que representa o número de linhas e colunas da matriz: ");
     while (scanf("%d", &N) != 1 || N <= 0) {
         printf("[ERRO] Valor inválido! Digite um número inteiro maior que zero: ");
             while(getchar() != '\n'); // Limpa o buffer
     }
+    while (getchar() != '\n'); // Lima o restante da linha após ler N
 
     // Alocação dinâmica de memória para a matriz N x N 
     matriz = (int *) malloc(N * N * sizeof(int));
@@ -359,15 +365,23 @@ int main(){
         opcao_menu2 = menu2();
 
         switch (opcao_menu2) {
-            case 'A':
+            case 'A': {
                 printf("\n--- CLASSE DA MATRIZ ---\n");
-                verificar_simetrica(matriz, N);
-                verificar_diagonal(matriz, N);
-                verificar_triangular_superior(matriz, N);
-                verificar_triangular_inferior(matriz, N);
+                int possui_categoria = 0;
+
+                possui_categoria += verificar_simetrica(matriz, N);
+                possui_categoria += verificar_diagonal(matriz, N);
+                possui_categoria += verificar_triangular_superior(matriz, N);
+                possui_categoria += verificar_triangular_inferior(matriz, N);
+                
+                if (possui_categoria == 0) {
+                    printf("Sem categoria específica.\n");
+                }
+
                 break;
-          
-            case 'B':
+            }
+
+            case 'B': {
                 int escalar = 0;
                 
                 printf("\n--- CÁLCULOS DA MATRIZ ---");
@@ -391,13 +405,16 @@ int main(){
 
                 printf("\nSoma da Diagonal da Matriz: %d\n", soma_diagonal);
 
-                for(int c = 0; c < N; c++){
-                    printf("Soma da linha %d: %d\n", c + 1, soma_linhas[c]);
+                if (soma_linhas != NULL) {
+                    for(int c = 0; c < N; c++){
+                        printf("Soma da linha %d: %d\n", c + 1, soma_linhas[c]);
+                    }
+                    free(soma_linhas);
                 }
 
-                free(soma_linhas);
                 break;
-                
+            }
+
             case 'C':
                 printf("\nSaindo do programa...\n");
                 break;
@@ -406,7 +423,6 @@ int main(){
 
     // Liberação da memória alocada 
     free(matriz);
-
     
     return 0;
 }
